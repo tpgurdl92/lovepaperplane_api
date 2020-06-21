@@ -1,0 +1,38 @@
+type User {
+    id: ID!
+    username:String!
+    age: Int!
+    gender: String!
+    rooms: [Room]!
+    itsMe: Boolean!
+    createdAt:String! 
+    updatedAt:String!
+}
+
+type File {
+    id: ID!
+    url:String!
+    messages:Message!
+    createdAt:String! 
+    updatedAt:String! 
+}
+
+type Room {
+    id:ID!
+    participantA:User! 
+    lastCheckTimeA:String!
+    lastCheckTimeB:String!
+    messages:[Message]! 
+    createdAt:String! 
+    updatedAt:String! 
+}
+
+type Message{
+    id:ID!
+    text: String!
+    from: User! 
+    to:User! 
+    room:Room! 
+    createdAt:String! 
+    updatedAt:String! 
+}

@@ -1,0 +1,38 @@
+type User {
+  id: ID! @id
+  username:String! @unique
+  age: Int!
+  gender: String!
+  rooms: [Room]! @relation(name:"RoomOfUser")
+  createdAt:DateTime! @createdAt
+  updatedAt:DateTime! @updatedAt
+}
+
+type File {
+  id: ID! @id
+  url:String!
+  messages:Message! @relation(name:"FileOfMessage")
+  createdAt:DateTime! @createdAt
+  updatedAt:DateTime! @updatedAt
+}
+
+type Room {
+  id:ID! @id
+  participantA:User! @relation(name:"UserAOfRoom")
+  participantB:User! @relation(name:"UserBOfRoom")
+  lastCheckTimeA:DateTime!
+  lastCheckTimeB:DateTime!
+  messages:[Message]!  @relation(name:"MessageOfRoom")
+  createdAt:DateTime! @createdAt
+  updatedAt:DateTime! @updatedAt
+}
+
+type Message{
+  id:ID! @id
+  text: String!
+  from: User! @relation(name:"From")
+  to:User! @relation(name:"To")
+  room:Room! @relation(name:"MessageOfRoom")
+  createdAt:DateTime! @createdAt
+  updatedAt:DateTime! @updatedAt
+}
