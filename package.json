@@ -1,0 +1,27 @@
+{
+  "name": "lovepaperplane-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tpgurdl92/lovepaperplane_api.git",
+  "author": "tpgurdl92 <tpgurdl92@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.10.3",
+    "@babel/core": "^7.10.3",
+    "@babel/node": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/runtime": "^7.10.3",
+    "dotenv": "^8.2.0",
+    "graphql-tools": "^6.0.10",
+    "graphql-yoga": "^1.18.3",
+    "merge-graphql-schemas": "^1.7.8",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.10.3",
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server.js"
+  }
+}
