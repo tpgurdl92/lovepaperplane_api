@@ -27,8 +27,6 @@ type Message{
   from: User! @relation(name:"From")
   to:User! @relation(name:"To")
   room:Room! @relation(name:"MessageOfRoom")
-  type:String!
-  file:File @relation(name:"FileOfMessage")
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
 }
