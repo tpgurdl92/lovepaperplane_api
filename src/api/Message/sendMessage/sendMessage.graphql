@@ -1,3 +1,3 @@
 type Mutation {
-    sendMessage(roomId:String toId:String myId:String type:String, text:String, file:File): Message
+    sendMessage(roomId:String toId:String myId:String type:String, data:String): Message
 }
