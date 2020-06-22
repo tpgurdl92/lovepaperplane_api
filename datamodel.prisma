@@ -8,13 +8,6 @@ type User {
   updatedAt:DateTime! @updatedAt
 }
 
-type File {
-  id: ID! @id
-  url:String!
-  messages:Message! @relation(name:"FileOfMessage")
-  createdAt:DateTime! @createdAt
-  updatedAt:DateTime! @updatedAt
-}
 
 type Room {
   id:ID! @id
@@ -29,7 +22,8 @@ type Room {
 
 type Message{
   id:ID! @id
-  text: String!
+  type:String!
+  data: String!
   from: User! @relation(name:"From")
   to:User! @relation(name:"To")
   room:Room! @relation(name:"MessageOfRoom")

@@ -9,17 +9,11 @@ type User {
     updatedAt:String!
 }
 
-type File {
-    id: ID!
-    url:String!
-    messages:Message!
-    createdAt:String! 
-    updatedAt:String! 
-}
 
 type Room {
     id:ID!
     participantA:User! 
+    participantB:User!
     lastCheckTimeA:String!
     lastCheckTimeB:String!
     messages:[Message]! 
@@ -29,7 +23,8 @@ type Room {
 
 type Message{
     id:ID!
-    text: String!
+    type:String!
+    data: String!
     from: User! 
     to:User! 
     room:Room! 
