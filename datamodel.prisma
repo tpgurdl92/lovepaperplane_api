@@ -1,32 +1,43 @@
 type User {
-  id: ID! @id
-  username:String! @unique
-  age: Int!
-  gender: String!
-  rooms: [Room]! @relation(name:"RoomOfUser")
-  createdAt:DateTime! @createdAt
-  updatedAt:DateTime! @updatedAt
+    id: ID!
+    username:String!
+    age: Int!
+    gender: String!
+    rooms: [Room]!
+    location:String!
+    createdAt:String! 
+    updatedAt:String!
 }
 
 
 type Room {
-  id:ID! @id
-  participantA:User! @relation(name:"UserAOfRoom")
-  participantB:User! @relation(name:"UserBOfRoom")
-  lastCheckTimeA:DateTime!
-  lastCheckTimeB:DateTime!
-  messages:[Message]!  @relation(name:"MessageOfRoom")
-  createdAt:DateTime! @createdAt
-  updatedAt:DateTime! @updatedAt
+    id:ID!
+    participantA:User! 
+    participantB:User!
+    lastCheckTimeA:String!
+    lastCheckTimeB:String!
+    messages:[Message]!
+    isAlive:Boolean! 
+    createdAt:String! 
+    updatedAt:String! 
 }
 
 type Message{
-  id:ID! @id
-  type:String!
-  data: String!
-  from: User! @relation(name:"From")
-  to:User! @relation(name:"To")
-  room:Room! @relation(name:"MessageOfRoom")
-  createdAt:DateTime! @createdAt
-  updatedAt:DateTime! @updatedAt
+    id:ID!
+    type:String!
+    data: String!
+    from: User! 
+    to:User! 
+    room:Room! 
+    createdAt:String! 
+    updatedAt:String! 
+}
+
+type Complain{
+    id:ID! 
+    from: User! 
+    to:User! 
+    message:Message! 
+    category:String!
+    comment:String
 }

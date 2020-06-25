@@ -4,6 +4,8 @@ type User {
     age: Int!
     gender: String!
     rooms: [Room]!
+    banningUser:[User!]
+    location: String!
     itsMe: Boolean!
     createdAt:String! 
     updatedAt:String!
@@ -16,7 +18,8 @@ type Room {
     participantB:User!
     lastCheckTimeA:String!
     lastCheckTimeB:String!
-    messages:[Message]! 
+    messages:[Message]!
+    isAlive:Boolean! 
     createdAt:String! 
     updatedAt:String! 
 }
