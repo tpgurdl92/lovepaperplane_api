@@ -1,0 +1,3 @@
+type Mutation {
+    createRoom(participantAId:String, participantBId:String, text:String): Room!
+}

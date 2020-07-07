@@ -4,7 +4,8 @@ type User {
     age: Int!
     gender: String!
     rooms: [Room]!
-    location:String!
+    banningUser:[User!]
+    location: String!
     itsMe: Boolean!
     createdAt:String! 
     updatedAt:String!
