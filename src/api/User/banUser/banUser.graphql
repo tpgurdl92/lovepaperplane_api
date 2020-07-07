@@ -1,0 +1,3 @@
+type Mutation{
+    banUser(myId:String!,toId:String!,roomId:String!):Boolean!
+}

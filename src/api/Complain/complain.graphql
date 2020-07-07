@@ -1,0 +1,3 @@
+type Mutation{
+    complain(myId:String!,toId:String!,roomId:String!,messageId:String!,category:String!,comment:String):Boolean!
+}
