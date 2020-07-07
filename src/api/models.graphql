@@ -34,3 +34,12 @@ type Message{
     createdAt:String! 
     updatedAt:String! 
 }
+
+type Complain{
+    id:ID! 
+    from: User! 
+    to:User! 
+    message:Message! 
+    category:String!
+    comment:String
+}
