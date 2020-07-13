@@ -1,11 +1,15 @@
 type User {
   id: ID! @id
   username:String! @unique
-  age: Int!
+  nickname:String! 
+  machineId:String! @unique
+  bio:String
+  birthDate: String!
   gender: String!
   rooms: [Room]! @relation(name:"RoomOfUser")
   banningUser : [User]! @relation(name: "BanningUserofUser")
   location: String!
+  pushFlag : Boolean!
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
 }

@@ -3,5 +3,5 @@ type Query {
 }
 
 type Mutation{
-    createUser(username:String! age:Int gender:String location:String!):User!
+    createUser(username:String! birthDate:String! gender:String! location:String! nickname:String! machineId:String!):User!
 }
