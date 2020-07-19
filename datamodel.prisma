@@ -10,6 +10,7 @@ type User {
   banningUser : [User]! @relation(name: "BanningUserofUser")
   location: String!
   pushFlag : Boolean!
+  availablePlane : Int!
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
 }

@@ -1,46 +1,46 @@
 type User {
-    id: ID!
-    username:String!
-    birthDate: String!
-    gender: String!
-    rooms: [Room]!
-    banningUser:[User!]
-    location: String!
-    machineId:String!
-    itsMe: Boolean!
-    createdAt:String! 
-    updatedAt:String!
+  id: ID!
+  username: String!
+  birthDate: String!
+  gender: String!
+  rooms: [Room!]
+  banningUser: [User!]
+  location: String!
+  machineId: String!
+  itsMe: Boolean!
+  availablePlane: Int!
+  createdAt: String!
+  updatedAt: String!
 }
-
 
 type Room {
-    id:ID!
-    participantA:User! 
-    participantB:User!
-    lastCheckTimeA:String!
-    lastCheckTimeB:String!
-    messages:[Message]!
-    isAlive:Boolean! 
-    createdAt:String! 
-    updatedAt:String! 
+  id: ID!
+  participantA: User!
+  participantB: User!
+  lastCheckTimeA: String!
+  lastCheckTimeB: String!
+  messages: [Message]!
+  isAlive: Boolean!
+  createdAt: String!
+  updatedAt: String!
 }
 
-type Message{
-    id:ID!
-    type:String!
-    data: String!
-    from: User! 
-    to:User! 
-    room:Room! 
-    createdAt:String! 
-    updatedAt:String! 
+type Message {
+  id: ID!
+  type: String!
+  data: String!
+  from: User!
+  to: User!
+  room: Room!
+  createdAt: String!
+  updatedAt: String!
 }
 
-type Complain{
-    id:ID! 
-    from: User! 
-    to:User! 
-    message:Message! 
-    category:String!
-    comment:String
+type Complain {
+  id: ID!
+  from: User!
+  to: User!
+  message: Message!
+  category: String!
+  comment: String
 }
