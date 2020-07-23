@@ -1,4 +1,32 @@
-export const MESSAGE_FRAGMENT=`
+export const USER_FRAGMENT = `
+    fragment UserPart on User{
+        id
+        username
+        birthDate
+        gender
+        rooms{
+            id
+            participantA{
+                id
+                username
+            } 
+            participantB{
+                id
+                username
+            }
+        }
+        banningUser{
+            id
+        }
+        location
+        machineId
+        availablePlane
+        createdAt 
+        updatedAt
+    }
+`;
+
+export const MESSAGE_FRAGMENT = `
     fragment MessagePart on Message{
         id
         type
@@ -16,9 +44,9 @@ export const MESSAGE_FRAGMENT=`
         }
         createdAt
     }
-`
+`;
 
-export const ROOM_FRAGMENT =`
+export const ROOM_FRAGMENT = `
     fragment RoomParts on Room{
         id
         participantA {

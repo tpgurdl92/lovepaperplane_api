@@ -3,13 +3,15 @@ import { prisma } from "../../../../generated/prisma-client";
 export default {
     Mutation:{
         editUser:async(_,args) =>{
-            const {userId, username, age, location} =args;
+            const {userId, username, age, location,nickname,bio} =args;
             try{
                 const editUser =await prisma.updateUser( { where: {id:userId},
                     data: {
                         username:username,
                         age:age,
-                        location:location
+                        location:location,
+                        nickname:nickname,
+                        bio:bio,
                     }
                 });
                 if(!editUser){
