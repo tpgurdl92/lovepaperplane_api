@@ -1,4 +1,5 @@
 type User {
+<<<<<<< HEAD
     id: ID!
     username: String!
     birthDate: String!
