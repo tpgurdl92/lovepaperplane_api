@@ -49,33 +49,45 @@ export const MESSAGE_FRAGMENT = `
 export const ROOM_FRAGMENT = `
     fragment RoomParts on Room{
         id
-        participantA {
-            id
-            username
+      participantA {
+        id
+        username
+        nickname
+        birthDate
+        gender
+        location
+        machineId
+      }
+      participantB {
+        id
+        username
+        nickname
+        birthDate
+        gender
+        location
+        machineId
+      }
+      lastCheckTimeA
+      lastCheckTimeB
+      messages {
+        id
+        type
+        data
+        from {
+          id
+          username
+          nickname
         }
-        participantB{
-            id
-            username
+        to {
+          id
+          username
+          nickname
         }
-        messages{
-            id
-            data
-            to{
-                id
-                username
-            }
-            from{
-                id
-                username
-            }
-            type
-            createdAt 
-            updatedAt
-        }
-        isAlive
-        lastCheckTimeA
-        lastCheckTimeB
-        createdAt 
+        createdAt
         updatedAt
+      }
+      isAlive
+      createdAt
+      updatedAt
     }
 `;

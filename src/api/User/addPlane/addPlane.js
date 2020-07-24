@@ -2,18 +2,21 @@ import { prisma } from "../../../../generated/prisma-client";
 
 export default {
   Mutation: {
-    addAvailablePlane: async (_, __, request) => {
-      const { userId } = request;
-      const user = prisma.user({ id: UserId });
+    addPlane: async (_, __, request) => {
+      const { userid: userId } = request.request.headers;
+      const user = await prisma.user({ id: userId });
+      console.log(user.availablePlane);
       try {
         if (user.availablePlane < 10) {
+          console.log("addadd");
           const updatedUser = await prisma.updateUser({
             data: { availablePlane: user.availablePlane + 1 },
-            where: { id: userID },
+            where: { id: userId },
           });
-          return updatedUser.availablePlane;
+          return updatedUser;
         } else {
-          return user.availablePlane;
+          console.log("noadd");
+          return user;
         }
       } catch (e) {
         console.log(e);

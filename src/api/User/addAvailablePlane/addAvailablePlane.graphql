@@ -1,3 +1,0 @@
-type Mutation {
-    addAvailablePlane(userId:String!):Int!
-}
