@@ -2,6 +2,7 @@ type User {
   id: ID!
   username: String!
   birthDate: String!
+  nickname: String!
   gender: String!
   rooms: [Room!]
   banningUser: [User!]
