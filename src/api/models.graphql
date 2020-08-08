@@ -16,10 +16,7 @@ type User {
 
 type Room {
     id: ID!
-    participantA: User!
-    participantB: User!
-    lastCheckTimeA: String!
-    lastCheckTimeB: String!
+    participant: [User]!
     messages: [Message]!
     isAlive: Boolean!
     createdAt: String!
@@ -35,6 +32,7 @@ type Message {
     room: Room!
     createdAt: String!
     updatedAt: String!
+    isChecked: Boolean!
 }
 
 type Complain {

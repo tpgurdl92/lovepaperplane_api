@@ -18,10 +18,7 @@ type User {
 
 type Room {
   id:ID! @id
-  participantA:User! @relation(name:"UserAOfRoom")
-  participantB:User! @relation(name:"UserBOfRoom")
-  lastCheckTimeA:DateTime!
-  lastCheckTimeB:DateTime!
+  participant:[User]! @relation(name:"RoomOfUser")
   messages:[Message]!  @relation(name:"MessageOfRoom")
   isAlive: Boolean!
   createdAt:DateTime! @createdAt
@@ -37,6 +34,7 @@ type Message{
   room:Room! @relation(name:"MessageOfRoom")
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
+  isChecked: Boolean!
 }
 
 type Complain{

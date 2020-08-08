@@ -14,6 +14,21 @@ export const USER_FRAGMENT = `
                 id
                 username
             }
+            messages {
+                id
+                type
+                data
+                from {
+                    id
+                    nickname
+                }
+                to {
+                    id
+                    nickname
+                }
+            }
+            createdAt
+            updatedAt
         }
         banningUser{
             id
@@ -32,16 +47,17 @@ export const MESSAGE_FRAGMENT = `
         type
         to{
             id
-            username
+            nickname
         }
         from{
             id
-            username
+            nickname
         }
         data
         room{
             id
         }
+        isChecked
         createdAt
     }
 `;
@@ -49,7 +65,7 @@ export const MESSAGE_FRAGMENT = `
 export const ROOM_FRAGMENT = `
     fragment RoomParts on Room{
         id
-      participantA {
+      participant {
         id
         username
         nickname
@@ -57,36 +73,27 @@ export const ROOM_FRAGMENT = `
         gender
         location
         machineId
+        itsMe
       }
-      participantB {
-        id
-        username
-        nickname
-        birthDate
-        gender
-        location
-        machineId
-      }
-      lastCheckTimeA
-      lastCheckTimeB
       messages {
         id
         type
         data
         from {
           id
-          username
           nickname
+          itsMe
         }
         to {
           id
-          username
           nickname
+          itsMe
         }
         createdAt
         updatedAt
       }
       isAlive
+      isChecked
       createdAt
       updatedAt
     }

@@ -1,4 +1,5 @@
 import {prisma} from "../../../../generated/prisma-client";
+import {USER_FRAGMENT} from "../../../fragments"
 
 export default {
     Query: {
@@ -6,7 +7,8 @@ export default {
             const {userid: userId} = request.request.headers;
             console.log("userid:" + userId);
             try {
-                const user = await prisma.user({id: userId});
+                const user = await prisma.user({id: userId}).$fragment(USER_FRAGMENT);
+                console.log(user);
                 if (user) {
                     console.log(user);
                     return user;
