@@ -33,10 +33,12 @@ export const MESSAGE_FRAGMENT = `
         to{
             id
             username
+            nickname
         }
         from{
             id
             username
+            nickname
         }
         data
         room{
