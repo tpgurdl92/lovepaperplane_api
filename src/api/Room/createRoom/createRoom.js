@@ -4,15 +4,12 @@ export default {
   Mutation: {
     createRoom: async (_, args, request) => {
       const { userid: userId } = request.request.headers;
-      console.log(userId);
       const { data, location } = args;
-      console.log("createRoom");
       const date = new Date();
       const user = await prisma.user({ id: userId }).$fragment(USER_FRAGMENT);
       // 이미 채팅방이 존재하는 유저의 id
       let exceptionUserIdList = [];
-      console.log(user);
-      if (user.rooms === null) {
+      if (user.rooms !== null && user.rooms !== undefined) {
         exceptionUserIdList = user.rooms.map((item) => {
           if (item.participant[0].id !== userId) {
             return item.participant[0].id;
@@ -24,8 +21,6 @@ export default {
         });
       }
       exceptionUserIdList.push(userId);
-      console.log("exceptionList 출력");
-      console.log(exceptionUserIdList);
       // ban한 유저들의 아이디는 볼필요가 없네.
       let userList = await prisma.users({
         where: {
@@ -48,7 +43,7 @@ export default {
           throw Error("can not find user to send message");
         }
       }
-      console.log(participantB);
+
       // 해당 유저의 비행기 개수가 1이상인지 확인
       if (user.availablePlane < 1) {
         throw Error("");
@@ -62,7 +57,7 @@ export default {
           id: userId,
         },
       });
-      console.log(participantB.id);
+
       const room = await prisma
         .createRoom({
           participant: { connect: [{ id: userId }, { id: participantB.id }] },
@@ -71,7 +66,6 @@ export default {
         .$fragment(ROOM_FRAGMENT);
 
       if (room) {
-        console.log(room);
         const message = await prisma.createMessage({
           type: "text",
           data: data,
