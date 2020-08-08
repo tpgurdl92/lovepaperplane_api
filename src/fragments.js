@@ -6,14 +6,11 @@ export const USER_FRAGMENT = `
         gender
         rooms{
             id
-            participantA{
+            participant{
                 id
                 username
             } 
-            participantB{
-                id
-                username
-            }
+
             messages {
                 id
                 type
@@ -47,18 +44,10 @@ export const MESSAGE_FRAGMENT = `
         type
         to{
             id
-<<<<<<< HEAD
-=======
-            username
->>>>>>> 33eb9298149da3e76f7d2bb915e7dc5a8174f879
             nickname
         }
         from{
             id
-<<<<<<< HEAD
-=======
-            username
->>>>>>> 33eb9298149da3e76f7d2bb915e7dc5a8174f879
             nickname
         }
         data
@@ -81,7 +70,7 @@ export const ROOM_FRAGMENT = `
         gender
         location
         machineId
-        itsMe
+
       }
       messages {
         id
@@ -89,19 +78,17 @@ export const ROOM_FRAGMENT = `
         data
         from {
           id
-          nickname
-          itsMe
+          nickname 
         }
         to {
           id
           nickname
-          itsMe
         }
+        isChecked
         createdAt
         updatedAt
       }
       isAlive
-      isChecked
       createdAt
       updatedAt
     }
