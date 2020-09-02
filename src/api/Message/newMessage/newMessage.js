@@ -13,7 +13,7 @@ export default {
               { mutation_in: ["CREATED"] },
               {
                 node: {
-                  OR: [{ to: { id: userId } }],
+                  OR: [{ to: { id: userId } }, { from: { id: userId } }],
                 },
               },
             ],
@@ -22,7 +22,8 @@ export default {
           .$fragment(MESSAGE_FRAGMENT);
       },
       resolve: (payload, args) => {
-        const { userId } = args;
+        console.log("subsub");
+        console.log(payload.room);
         if (payload.to.id === userId) {
           payload.to.itsMe = true;
           payload.from.itsMe = false;
