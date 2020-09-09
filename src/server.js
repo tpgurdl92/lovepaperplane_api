@@ -10,7 +10,13 @@ const server = new GraphQLServer({
   context: ({ request, connection }) => ({ request, connection }),
 });
 server.express.use(logger("dev"));
-//server.express.post("/api/upload", uploadMiddleware, uploadController);
+server.express.post(
+  "/api/upload",
+  uploadMiddleware /*() => {
+    console.log("sibal");
+  }*/,
+  uploadController
+);
 server.start({ PORT }, () =>
   console.log(`Server running on http://localhost:${PORT}`)
 );

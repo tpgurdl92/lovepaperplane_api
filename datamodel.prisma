@@ -11,6 +11,7 @@ type User {
   location: String!
   pushFlag : Boolean!
   availablePlane : Int!
+  complains:[Complain]! @relation(name:"ComplainOfUser")
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
 }
@@ -39,8 +40,8 @@ type Message{
 
 type Complain{
   id:ID! @id
-  from: User! @relation(name:"FromOfComplain")
-  to:User! @relation(name:"ToOfComplain")
+  from: User! 
+  to:User! @relation(name:"ComplainOfUser")
   message:Message! @relation(name:"MessageOfComplain")
   category:String!
   comment:String
