@@ -4,7 +4,7 @@ export default {
   Mutation: {
     createRoom: async (_, args, request) => {
       const { userid: userId } = request.request.headers;
-      const { data, location } = args;
+      const { planeType, data, location } = args;
       const date = new Date();
       const user = await prisma.user({ id: userId }).$fragment(USER_FRAGMENT);
       // 이미 채팅방이 존재하는 유저의 id
@@ -45,23 +45,44 @@ export default {
       }
 
       // 해당 유저의 비행기 개수가 1이상인지 확인
-      if (user.availablePlane < 1) {
-        throw Error("");
-      }
       // 해당 유저의 비행기수를 하나 지운다.
-      const updatedUser = await prisma.updateUser({
-        data: {
-          availablePlane: user.availablePlane - 1,
-        },
-        where: {
-          id: userId,
-        },
-      });
-
+      if (planeType === "gold") {
+        if (user.goldPlane < 1) {
+          throw Error("");
+        }
+        const updatedUser = await prisma.updateUser({
+          data: {
+            goldPlane: user.goldPlane - 1,
+          },
+          where: {
+            id: userId,
+          },
+        });
+      } else {
+        if (user.normalPlane < 1) {
+          throw Error("");
+        }
+        const updatedUser = await prisma.updateUser({
+          data: {
+            normalPlane: user.normalPlane - 1,
+          },
+          where: {
+            id: userId,
+          },
+        });
+      }
+      //blockFlg 작성
+      console.log("blockFlg");
       const room = await prisma
         .createRoom({
           participant: { connect: [{ id: userId }, { id: participantB.id }] },
           isAlive: true,
+          blockFlg: {
+            create: [
+              { fromId: userId, toId: participantB.id, flag: false },
+              { fromId: participantB.id, toId: userId, flag: false },
+            ],
+          },
         })
         .$fragment(ROOM_FRAGMENT);
 

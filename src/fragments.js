@@ -4,35 +4,46 @@ export const USER_FRAGMENT = `
         username
         birthDate
         gender
-        rooms{
-            id
-            participant{
-                id
-                username
-            } 
-
-            messages {
-                id
-                type
-                data
-                from {
-                    id
-                    nickname
-                }
-                to {
-                    id
-                    nickname
-                }
-            }
-            createdAt
-            updatedAt
-        }
+        nickname
         banningUser{
             id
         }
+        complainning{
+            id
+            from{
+                id
+                username
+                
+            }
+            to{
+                id
+                username
+               
+            }
+            messageId
+            category
+            comment
+        }
+        complainned{
+            id
+            from{
+                id
+                username
+                nickname
+            }
+            to{
+                id
+                username
+                nickname
+            }
+            messageId
+            category
+            comment
+        }
         location
         machineId
-        availablePlane
+        normalPlane
+        goldPlane
         createdAt 
         updatedAt
     }
@@ -87,8 +98,30 @@ export const ROOM_FRAGMENT = `
             createdAt
             updatedAt
         }
+        blockFlg{
+            id
+            fromId
+            toId
+            flag
+
+        }
         isAlive
         createdAt
         updatedAt
+    }
+`;
+
+export const COMPLAIN_FRAGMENT = `
+    fragment ComplainParts on Complain{
+        id
+        from{
+            id
+        }
+        to{
+            id
+        }
+        messageId
+        category
+        comment
     }
 `;

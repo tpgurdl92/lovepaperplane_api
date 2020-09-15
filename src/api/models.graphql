@@ -1,45 +1,59 @@
 type User {
-    id: ID!
-    username: String!
-    birthDate: String!
-    nickname: String!
-    gender: String!
-    rooms: [Room!]
-    banningUser: [User!]
-    location: String!
-    machineId: String!
-    itsMe: Boolean!
-    availablePlane: Int!
-    createdAt: String!
-    updatedAt: String!
+  id: ID!
+  username: String!
+  birthDate: String!
+  nickname: String!
+  gender: String!
+  rooms: [Room!]
+  banningUser: [User!]
+  location: String!
+  machineId: String!
+  itsMe: Boolean!
+  normalPlane: Int!
+  goldPlane: Int!
+  complainned: [Complain]!
+  complainning: [Complain]!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type Room {
-    id: ID!
-    participant: [User]!
-    messages: [Message]!
-    isAlive: Boolean!
-    createdAt: String!
-    updatedAt: String!
+  id: ID!
+  participant: [User]!
+  messages: [Message]!
+  isAlive: Boolean!
+  blockFlg: [BlockFlg]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type BlockFlg {
+  id: ID!
+  room: Room!
+  fromId: String!
+  toId: String!
+  flag: Boolean!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type Message {
-    id: ID!
-    type: String!
-    data: String!
-    from: User!
-    to: User!
-    room: Room!
-    createdAt: String!
-    updatedAt: String!
-    isChecked: Boolean!
+  id: ID!
+  type: String!
+  data: String!
+  from: User!
+  to: User!
+  room: Room!
+  createdAt: String!
+  updatedAt: String!
+  isChecked: Boolean!
 }
 
 type Complain {
-    id: ID!
-    from: User!
-    to: User!
-    message: Message!
-    category: String!
-    comment: String
+  id: ID!
+  from: User!
+  to: User!
+  messageId: String!
+  category: String!
+  comment: String!
 }

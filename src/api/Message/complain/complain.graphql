@@ -1,0 +1,8 @@
+type Mutation {
+  complain(
+    messageId: String!
+    toId: String!
+    category: String!
+    comment: String!
+  ): Complain
+}

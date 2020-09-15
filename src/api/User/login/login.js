@@ -1,5 +1,5 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { ROOM_FRAGMENT } from "../../../fragments";
+import { ROOM_FRAGMENT, USER_FRAGMENT } from "../../../fragments";
 
 export default {
   Query: {
@@ -7,7 +7,7 @@ export default {
       console.log("im in1");
       const { machineId } = args;
       try {
-        const user = await prisma.user({ machineId });
+        const user = await prisma.user({ machineId }).$fragment(USER_FRAGMENT);
         if (user) {
           const rooms = await prisma
             .rooms({
@@ -20,6 +20,9 @@ export default {
                   },
                   {
                     isAlive: true,
+                  },
+                  {
+                    blockFlg_every: { fromId: user.id, flag: false },
                   },
                 ],
               },

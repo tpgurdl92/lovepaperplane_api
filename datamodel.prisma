@@ -6,12 +6,14 @@ type User {
   bio:String
   birthDate: String!
   gender: String!
-  rooms: [Room]! @relation(name:"RoomOfUser")
-  banningUser : [User]! @relation(name: "BanningUserofUser")
+  rooms: [Room]! @relation(name:"RoomOfUser" onDelete:CASCADE)
+  banningUser : [User]! @relation(name: "BanningUserofUser" )
   location: String!
   pushFlag : Boolean!
-  availablePlane : Int!
-  complains:[Complain]! @relation(name:"ComplainOfUser")
+  normalPlane : Int!
+  goldPlane:Int!
+  complainned:[Complain]! @relation(name:"ComplainnedOfUser" onDelete:CASCADE)
+  complainning:[Complain]! @relation(name:"ComplainningOfUser" onDelete:CASCADE)
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
 }
@@ -20,8 +22,19 @@ type User {
 type Room {
   id:ID! @id
   participant:[User]! @relation(name:"RoomOfUser")
-  messages:[Message]!  @relation(name:"MessageOfRoom")
+  messages:[Message]!  @relation(name:"MessageOfRoom" onDelete:CASCADE)
   isAlive: Boolean!
+  blockFlg:[BlockFlg]! @relation(name:"BlockFlg" onDelete:CASCADE) 
+  createdAt:DateTime! @createdAt
+  updatedAt:DateTime! @updatedAt
+}
+
+type BlockFlg {
+  id:ID! @id
+  room:Room! @relation(name:"BlockFlg")
+  fromId:String!
+  toId:String!
+  flag:Boolean!
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
 }
@@ -40,9 +53,9 @@ type Message{
 
 type Complain{
   id:ID! @id
-  from: User! 
-  to:User! @relation(name:"ComplainOfUser")
-  message:Message! @relation(name:"MessageOfComplain")
+  from:User! @relation(name:"ComplainningOfUser")
+  to:User! @relation(name:"ComplainnedOfUser")
+  messageId:String!
   category:String!
   comment:String
 }

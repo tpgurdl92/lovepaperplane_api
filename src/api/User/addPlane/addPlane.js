@@ -5,12 +5,12 @@ export default {
     addPlane: async (_, __, request) => {
       const { userid: userId } = request.request.headers;
       const user = await prisma.user({ id: userId });
-      console.log(user.availablePlane);
+      console.log(user.goldPlane);
       try {
-        if (user.availablePlane < 10) {
+        if (user.goldPlane < 10) {
           console.log("addadd");
           const updatedUser = await prisma.updateUser({
-            data: { availablePlane: user.availablePlane + 1 },
+            data: { goldPlane: user.goldPlane + 1 },
             where: { id: userId },
           });
           return updatedUser;
