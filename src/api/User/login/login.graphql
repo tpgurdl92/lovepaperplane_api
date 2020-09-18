@@ -1,7 +1,7 @@
 type Query {
-    login(machineId: String!): MaintenanceData
+  login(machineId: String!): MaintenanceData
 }
 type MaintenanceData {
-    user: User!
-    rooms: [Room]!
+  user: User!
+  rooms: [Room]
 }

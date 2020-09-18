@@ -1,10 +1,23 @@
-import { prisma } from "../../../../generated/prisma-client";
-import { MESSAGE_FRAGMENT } from "../../../fragments";
+import {
+  prisma
+} from "../../../../generated/prisma-client";
+import {
+  MESSAGE_FRAGMENT
+} from "../../../fragments";
 export default {
   Mutation: {
-    sendMessage: async (_, args, { request }) => {
-      const { roomId, toId, type, data } = args;
-      const { userid: userId } = request.headers;
+    sendMessage: async (_, args, {
+      request
+    }) => {
+      const {
+        roomId,
+        toId,
+        type,
+        data
+      } = args;
+      const {
+        userid: userId
+      } = request.headers;
       console.log("send Mesage");
       const message = await prisma
         .createMessage({
