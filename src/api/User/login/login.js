@@ -33,7 +33,7 @@ export default {
               },
             })
             .$fragment(ROOM_FRAGMENT);
-          console.log(rooms.length);
+          console.log(rooms);
           return { user: user, rooms: rooms };
         } else {
           return null;
