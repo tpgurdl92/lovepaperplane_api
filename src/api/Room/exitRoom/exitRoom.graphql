@@ -1,0 +1,8 @@
+type Mutation {
+  exitRoom(
+    userId: String!
+    roomId: String!
+    blockId: String!
+    toId: String!
+  ): BlockFlg!
+}

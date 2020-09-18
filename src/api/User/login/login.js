@@ -7,7 +7,11 @@ export default {
       console.log("im in1");
       const { machineId } = args;
       try {
-        const user = await prisma.user({ machineId }).$fragment(USER_FRAGMENT);
+        const user = await prisma
+          .user({
+            machineId,
+          })
+          .$fragment(USER_FRAGMENT);
         if (user) {
           console.log("userID:" + user.id);
           const rooms = await prisma
