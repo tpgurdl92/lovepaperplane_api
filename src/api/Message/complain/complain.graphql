@@ -1,5 +1,6 @@
 type Mutation {
   complain(
+    blockFlgId: String!
     messageId: String!
     toId: String!
     category: String!

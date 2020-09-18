@@ -9,6 +9,7 @@ export default {
       try {
         const user = await prisma.user({ machineId }).$fragment(USER_FRAGMENT);
         if (user) {
+          console.log("userID:" + user.id);
           const rooms = await prisma
             .rooms({
               where: {
@@ -22,13 +23,13 @@ export default {
                     isAlive: true,
                   },
                   {
-                    blockFlg_every: { fromId: user.id, flag: false },
+                    blockFlg_none: { fromId: user.id, flag: true },
                   },
                 ],
               },
             })
             .$fragment(ROOM_FRAGMENT);
-          console.log("new: " + rooms[0].id);
+          console.log(rooms.length);
           return { user: user, rooms: rooms };
         } else {
           return null;

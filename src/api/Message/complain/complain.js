@@ -4,7 +4,7 @@ import { COMPLAIN_FRAGMENT } from "../../../fragments";
 export default {
   Mutation: {
     complain: async (_, args, { request }) => {
-      const { messageId, toId, category, comment } = args;
+      const { messageId, blockFlgId, toId, category, comment } = args;
       const { userid: userId } = request.headers;
       const complain = await prisma
         .createComplain({
@@ -22,6 +22,11 @@ export default {
           },
           where: { id: userId },
         });
+        const blockFlg = await prisma.updateBlockFlg({
+          data: { flag: true },
+          where: { id: blockFlgId },
+        });
+
         return complain;
       } else {
         return null;
