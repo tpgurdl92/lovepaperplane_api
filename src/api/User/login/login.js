@@ -42,7 +42,7 @@ export default {
               },
             })
             .$fragment(ROOM_FRAGMENT);
-          console.log(rooms);
+          console.log('rooms data login :' + rooms[0].id);
           return {
             user: user,
             rooms: rooms

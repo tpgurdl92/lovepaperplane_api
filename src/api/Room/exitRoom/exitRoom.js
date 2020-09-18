@@ -1,9 +1,6 @@
 import {
     prisma
 } from '../../../../generated/prisma-client';
-import {
-    ROOM_FRAGMENT
-} from '../../../fragments';
 export default {
     Mutation: {
         exitRoom: async (_, args) => {

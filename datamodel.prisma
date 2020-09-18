@@ -14,8 +14,11 @@ type User {
   goldPlane:Int!
   complainned:[Complain]! @relation(name:"ComplainnedOfUser" onDelete:CASCADE)
   complainning:[Complain]! @relation(name:"ComplainningOfUser" onDelete:CASCADE)
+  validDate: DateTime!
+  lastLoginTime: DateTime!
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
+  logicDelete: Boolean!
 }
 
 
@@ -24,7 +27,8 @@ type Room {
   participant:[User]! @relation(name:"RoomOfUser")
   messages:[Message]!  @relation(name:"MessageOfRoom" onDelete:CASCADE)
   isAlive: Boolean!
-  blockFlg:[BlockFlg]! @relation(name:"BlockFlg" onDelete:CASCADE) 
+  blockFlg:[BlockFlg]! @relation(name:"BlockFlg" onDelete:CASCADE)
+  readFlg: [ReadFlg]! @relation(name:"ReadFlg" onDelete:CASCADE) 
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
 }
@@ -35,6 +39,16 @@ type BlockFlg {
   fromId:String!
   toId:String!
   flag:Boolean!
+  createdAt:DateTime! @createdAt
+  updatedAt:DateTime! @updatedAt
+}
+
+type ReadFlg {
+  id:ID! @id
+  room:Room! @relation(name:"ReadFlg")
+  fromId:String!
+  toId:String!
+  checkedTime:DateTime!
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
 }

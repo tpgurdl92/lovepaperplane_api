@@ -13,8 +13,11 @@ type User {
   goldPlane: Int!
   complainned: [Complain]!
   complainning: [Complain]!
+  validDate: String!
+  lastLoginTime: String!
   createdAt: String!
   updatedAt: String!
+  logicDelete: Boolean!
 }
 
 type Room {
@@ -23,6 +26,7 @@ type Room {
   messages: [Message]!
   isAlive: Boolean!
   blockFlg: [BlockFlg]!
+  readFlg: [ReadFlg]!
   createdAt: String!
   updatedAt: String!
 }
@@ -37,6 +41,14 @@ type BlockFlg {
   updatedAt: String!
 }
 
+type ReadFlg {
+  id: ID!
+  room: Room!
+  fromId: String!
+  toId: String!
+  createdAt: String!
+  updatedAt: String!
+}
 type Message {
   id: ID!
   type: String!
