@@ -1,4 +1,6 @@
-import { prisma } from "../../../../generated/prisma-client";
+import {
+  prisma
+} from "../../../../generated/prisma-client";
 
 export default {
   Mutation: {
@@ -17,7 +19,9 @@ export default {
       // 20200707 park modify end
       try {
         // 20200707 park add start
-        const duplicationCheck = await prisma.user({ username });
+        const duplicationCheck = await prisma.user({
+          username
+        });
         if (duplicationCheck) {
           throw Error("username already exist");
         }
@@ -26,6 +30,7 @@ export default {
           ...args,
           pushFlag: true,
           normalPlane: 3,
+          goldPlane: 0,
         });
         if (!user) {
           // if user was not created

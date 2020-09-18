@@ -1,15 +1,20 @@
-import { prisma } from '../../../../generated/prisma-client';
-import { ROOM_FRAGMENT } from '../../../fragments';
+import {
+    prisma
+} from '../../../../generated/prisma-client';
+import {
+    ROOM_FRAGMENT
+} from '../../../fragments';
 
 export default {
     Query: {
         seeRooms: async (_, __, request) => {
-            const { userid: userId } = request.request.headers;
+            const {
+                userid: userId
+            } = request.request.headers;
             const rooms = await prisma
                 .rooms({
                     where: {
-                        AND: [
-                            {
+                        AND: [{
                                 participant_some: {
                                     id_in: [userId],
                                 },

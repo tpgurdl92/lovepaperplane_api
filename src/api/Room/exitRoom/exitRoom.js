@@ -21,16 +21,18 @@ export default {
                     flag: true
                 }
             })
-            // const banUser = await prisma.updateUser({
-            //     where: {
-            //         id: userId,
-            //     },
-            //     data: {
-            //         banningUser: {
-            //             id: toId
-            //         }
-            //     }
-            // })
+            const banUser = await prisma.updateUser({
+                where: {
+                    id: userId,
+                },
+                data: {
+                    banningUser: {
+                        connect: {
+                            id: toId
+                        }
+                    }
+                }
+            })
             if (exitRoom && banUser) {
                 console.log('success exit room');
                 return exitRoom;
