@@ -42,6 +42,7 @@ export default {
               },
             })
             .$fragment(ROOM_FRAGMENT);
+          console.log(rooms);
           return {
             user: user,
             rooms: rooms
