@@ -1,12 +1,25 @@
-import { prisma } from "../../../../generated/prisma-client";
-import { USER_FRAGMENT, ROOM_FRAGMENT } from "../../../fragments";
+import {
+  prisma
+} from "../../../../generated/prisma-client";
+import {
+  USER_FRAGMENT,
+  ROOM_FRAGMENT
+} from "../../../fragments";
 export default {
   Mutation: {
     createRoom: async (_, args, request) => {
-      const { userid: userId } = request.request.headers;
-      const { planeType, data, location } = args;
+      const {
+        userid: userId
+      } = request.request.headers;
+      const {
+        planeType,
+        data,
+        location
+      } = args;
       const date = new Date();
-      const user = await prisma.user({ id: userId }).$fragment(USER_FRAGMENT);
+      const user = await prisma.user({
+        id: userId
+      }).$fragment(USER_FRAGMENT);
       // 이미 채팅방이 존재하는 유저의 id
       let exceptionUserIdList = [];
       if (user.rooms !== null && user.rooms !== undefined) {
@@ -75,12 +88,25 @@ export default {
       console.log("blockFlg");
       const room = await prisma
         .createRoom({
-          participant: { connect: [{ id: userId }, { id: participantB.id }] },
+          participant: {
+            connect: [{
+              id: userId
+            }, {
+              id: participantB.id
+            }]
+          },
           isAlive: true,
           blockFlg: {
-            create: [
-              { fromId: userId, toId: participantB.id, flag: false },
-              { fromId: participantB.id, toId: userId, flag: false },
+            create: [{
+                fromId: userId,
+                toId: participantB.id,
+                flag: false
+              },
+              {
+                fromId: participantB.id,
+                toId: userId,
+                flag: false
+              },
             ],
           },
         })

@@ -20,6 +20,14 @@ export default {
           })
           .$fragment(USER_FRAGMENT);
         if (user) {
+          const lastLogin = await prisma.updateUser({
+            where: {
+              machineId
+            },
+            data: {
+              lastLoginTime: new Date()
+            }
+          })
           console.log("userID:" + user.id);
           const rooms = await prisma
             .rooms({
@@ -42,6 +50,9 @@ export default {
               },
             })
             .$fragment(ROOM_FRAGMENT);
+          if (!lastLogin) {
+            return null;
+          }
           console.log('rooms data login :' + rooms[0].id);
           return {
             user: user,
