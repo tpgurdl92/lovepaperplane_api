@@ -46,6 +46,7 @@ type ReadFlg {
   room: Room!
   fromId: String!
   toId: String!
+  checkedTime: String!
   createdAt: String!
   updatedAt: String!
 }

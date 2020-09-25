@@ -1,18 +1,12 @@
-import {
-  prisma
-} from "../../../../generated/prisma-client";
-import {
-  ROOM_FRAGMENT,
-  USER_FRAGMENT
-} from "../../../fragments";
+import { prisma } from "../../../../generated/prisma-client";
+import { ROOM_FRAGMENT, USER_FRAGMENT } from "../../../fragments";
 
 export default {
   Query: {
     login: async (_, args) => {
       console.log("im in1");
-      const {
-        machineId
-      } = args;
+      const { machineId } = args;
+      console.log(machineId);
       try {
         const user = await prisma
           .user({
@@ -24,7 +18,8 @@ export default {
           const rooms = await prisma
             .rooms({
               where: {
-                AND: [{
+                AND: [
+                  {
                     participant_some: {
                       id_in: [user.id],
                     },
@@ -35,17 +30,17 @@ export default {
                   {
                     blockFlg_none: {
                       fromId: user.id,
-                      flag: true
+                      flag: true,
                     },
                   },
                 ],
               },
             })
             .$fragment(ROOM_FRAGMENT);
-          console.log('rooms data login :' + rooms[0].id);
+
           return {
             user: user,
-            rooms: rooms
+            rooms: rooms,
           };
         } else {
           return null;

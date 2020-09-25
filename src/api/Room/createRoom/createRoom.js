@@ -1,16 +1,31 @@
 import { prisma } from "../../../../generated/prisma-client";
-import { USER_FRAGMENT, ROOM_FRAGMENT } from "../../../fragments";
+import {
+  USER_FRAGMENT,
+  ROOM_FRAGMENT,
+  MESSAGE_FRAGMENT,
+  USER_FRAGMENT_WITHROOM,
+} from "../../../fragments";
 export default {
   Mutation: {
     createRoom: async (_, args, request) => {
       const { userid: userId } = request.request.headers;
       const { planeType, data, location } = args;
       const date = new Date();
-      const user = await prisma.user({ id: userId }).$fragment(USER_FRAGMENT);
+      let checkdate = new Date();
+      console.log(`originaldate:${checkdate}`);
+      checkdate.setDate(checkdate.getDate() - 10);
+      console.log(`modifieddate:${checkdate}`);
+      const user = await prisma
+        .user({ id: userId })
+        .$fragment(USER_FRAGMENT_WITHROOM);
       // 이미 채팅방이 존재하는 유저의 id
       let exceptionUserIdList = [];
+      console.log("bbbb");
+      console.log(user.rooms);
       if (user.rooms !== null && user.rooms !== undefined) {
+        console.log("cccc");
         exceptionUserIdList = user.rooms.map((item) => {
+          console.log("dddd");
           if (item.participant[0].id !== userId) {
             return item.participant[0].id;
           } else if (item.participant[1].id !== userId) {
@@ -21,20 +36,23 @@ export default {
         });
       }
       exceptionUserIdList.push(userId);
-      // ban한 유저들의 아이디는 볼필요가 없네.
+      console.log("man:" + exceptionUserIdList);
+      // 존재하는 채팅상대 제외 , 내가 보내고 싶은 지역, 유령회원이 아닐 것
       let userList = await prisma.users({
         where: {
           id_not_in: exceptionUserIdList,
           location: location,
+          lastLoginTime_gte: checkdate,
         },
         first: 1,
       });
       let participantB = userList[0];
-      // 보내고 싶은 지역의 유저를 찾지 못 했을 경우, 다른 지역의 유저도 검색한다.
+      // 존재하는 채팅상대 제외, 유령회원이 아닐 것
       if (participantB === null || participantB === undefined) {
         userList = await prisma.users({
           where: {
             id_not_in: exceptionUserIdList,
+            lastLoginTime_gte: checkdate,
           },
           first: 1,
         });
@@ -83,32 +101,43 @@ export default {
               { fromId: participantB.id, toId: userId, flag: false },
             ],
           },
+          readFlg: {
+            create: [
+              { fromId: userId, toId: participantB.id, checkedTime: date },
+              { fromId: participantB.id, toId: userId, checkedTime: date },
+            ],
+          },
         })
         .$fragment(ROOM_FRAGMENT);
 
       if (room) {
-        const message = await prisma.createMessage({
-          type: "text",
-          data: data,
-          from: {
-            connect: {
-              id: userId,
+        const message = await prisma
+          .createMessage({
+            type: "text",
+            data: data,
+            from: {
+              connect: {
+                id: userId,
+              },
             },
-          },
-          to: {
-            connect: {
-              id: participantB.id,
+            to: {
+              connect: {
+                id: participantB.id,
+              },
             },
-          },
-          room: {
-            connect: {
-              id: room.id,
+            room: {
+              connect: {
+                id: room.id,
+              },
             },
-          },
-          isChecked: false,
-        });
+            isChecked: false,
+          })
+          .$fragment(MESSAGE_FRAGMENT);
+        console.log("room1:" + room.id);
         if (message) {
-          room.message = message;
+          room.messages = [message];
+          console.log("room2:" + room.id);
+          console.log("room3:" + room.messages);
           return room;
         }
       } else {

@@ -48,25 +48,91 @@ export const USER_FRAGMENT = `
         updatedAt
     }
 `;
+export const USER_FRAGMENT_WITHROOM = `
+    fragment UserPart on User{
+        id
+        username
+        birthDate
+        gender
+        nickname
+        rooms{
+            id
+            participant {
+                id
+                username
+                nickname
+                birthDate
+                gender
+                location
+                machineId
+            }
+        }
+        banningUser{
+            id
+        }
+        complainning{
+            id
+            from{
+                id
+                username
+                
+            }
+            to{
+                id
+                username
+               
+            }
+            messageId
+            category
+            comment
+        }
+        complainned{
+            id
+            from{
+                id
+                username
+                nickname
+            }
+            to{
+                id
+                username
+                nickname
+            }
+            messageId
+            category
+            comment
+        }
+        location
+        machineId
+        normalPlane
+        goldPlane
+        createdAt 
+        updatedAt
+    }
+`;
 
 export const MESSAGE_FRAGMENT = `
     fragment MessagePart on Message{
         id
-        type
-        to{
-            id
-            nickname
-        }
-        from{
-            id
-            nickname
-        }
         data
+        type
         room{
             id
         }
+        to {
+          id
+          nickname
+          
+        }
+        from {
+          id
+          nickname
+          
+        }
         isChecked
+        updatedAt
         createdAt
+        updatedAt
     }
 `;
 
@@ -104,6 +170,17 @@ export const ROOM_FRAGMENT = `
             toId
             flag
 
+        }
+        readFlg{
+            id
+            room{
+                id
+            }
+            fromId
+            toId
+            checkedTime
+            createdAt
+            updatedAt
         }
         isAlive
         createdAt
