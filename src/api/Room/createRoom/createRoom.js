@@ -93,12 +93,29 @@ export default {
       console.log("blockFlg");
       const room = await prisma
         .createRoom({
-          participant: { connect: [{ id: userId }, { id: participantB.id }] },
+          participant: {
+            connect: [
+              {
+                id: userId,
+              },
+              {
+                id: participantB.id,
+              },
+            ],
+          },
           isAlive: true,
           blockFlg: {
             create: [
-              { fromId: userId, toId: participantB.id, flag: false },
-              { fromId: participantB.id, toId: userId, flag: false },
+              {
+                fromId: userId,
+                toId: participantB.id,
+                flag: false,
+              },
+              {
+                fromId: participantB.id,
+                toId: userId,
+                flag: false,
+              },
             ],
           },
           readFlg: {
