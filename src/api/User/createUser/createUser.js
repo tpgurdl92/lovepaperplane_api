@@ -45,6 +45,8 @@ export default {
                 normalPlane: 3,
                 goldPlane: 0,
                 validDate: new Date(),
+                logicDelete: false,
+
                 //moment().format("YYYY-MM-DD HH:mm:ss")
               },
             })

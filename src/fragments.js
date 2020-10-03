@@ -44,6 +44,7 @@ export const USER_FRAGMENT = `
         machineId
         normalPlane
         goldPlane
+        logicDelete
         createdAt 
         updatedAt
     }
