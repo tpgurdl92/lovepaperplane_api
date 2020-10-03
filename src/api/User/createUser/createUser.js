@@ -48,7 +48,9 @@ export default {
               pushFlag: true,
               normalPlane: 3,
               goldPlane: 0,
-              validDate: new Date()
+              validDate: new Date(),
+              logicDelete: false
+
               //moment().format("YYYY-MM-DD HH:mm:ss")
             }
           }).$fragment(USER_FRAGMENT);
