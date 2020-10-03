@@ -1,3 +1,0 @@
-type Subscription {
-  messageReaded(userId: String!): ReadFlg!
-}

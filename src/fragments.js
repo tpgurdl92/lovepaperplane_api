@@ -202,3 +202,16 @@ export const COMPLAIN_FRAGMENT = `
         comment
     }
 `;
+export const MESSAGEREAD_FRAGMENT = `
+    fragment ReadFlgParts on ReadFlg{
+        id
+        room{
+            id
+        }
+        fromId
+        toId
+        checkedTime
+        createdAt
+        updatedAt
+    }
+`;

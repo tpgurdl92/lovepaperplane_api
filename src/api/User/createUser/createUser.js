@@ -1,10 +1,5 @@
-import moment from 'moment';
-import {
-  prisma
-} from "../../../../generated/prisma-client";
-import {
-  USER_FRAGMENT
-} from "../../../fragments";
+import { prisma } from "../../../../generated/prisma-client";
+import { USER_FRAGMENT } from "../../../fragments";
 
 export default {
   Mutation: {
@@ -33,39 +28,43 @@ export default {
         });
         let user;
         if (resignCheck) {
-          console.log('update user');
+          console.log("update user");
           console.log(username);
-          user = await prisma.updateUser({
-            where: {
-              machineId: machineId,
-            },
-            data: {
-              username: username,
-              birthDate: birthDate,
-              gender: gender,
-              location: location,
-              nickname: nickname,
-              pushFlag: true,
-              normalPlane: 3,
-              goldPlane: 0,
-              validDate: new Date()
-              //moment().format("YYYY-MM-DD HH:mm:ss")
-            }
-          }).$fragment(USER_FRAGMENT);
+          user = await prisma
+            .updateUser({
+              where: {
+                machineId: machineId,
+              },
+              data: {
+                username: username,
+                birthDate: birthDate,
+                gender: gender,
+                location: location,
+                nickname: nickname,
+                pushFlag: true,
+                normalPlane: 3,
+                goldPlane: 0,
+                validDate: new Date(),
+                //moment().format("YYYY-MM-DD HH:mm:ss")
+              },
+            })
+            .$fragment(USER_FRAGMENT);
         } else {
           if (duplicationCheck) {
             throw Error("username already exist");
           }
-          console.log('create user');
-          user = await prisma.createUser({
-            ...args,
-            pushFlag: true,
-            normalPlane: 3,
-            goldPlane: 0,
-            validDate: moment().format("YYYY-MM-DD HH:mm:ss")
-          }).$fragment(USER_FRAGMENT);
+          console.log("create user");
+          user = await prisma
+            .createUser({
+              ...args,
+              pushFlag: true,
+              normalPlane: 3,
+              goldPlane: 0,
+              validDate: moment().format("YYYY-MM-DD HH:mm:ss"),
+            })
+            .$fragment(USER_FRAGMENT);
         }
-        console.log('user man: ' + user);
+        console.log("user man: " + user);
         if (!user) {
           // if user was not created
           console.log("failure");
@@ -76,7 +75,7 @@ export default {
         const rooms = new Array();
         return {
           user: user,
-          rooms: rooms
+          rooms: rooms,
         };
       } catch (e) {
         console.log(e);
