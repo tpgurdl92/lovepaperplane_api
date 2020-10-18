@@ -1,5 +1,9 @@
-import { prisma } from "../../../../generated/prisma-client";
-import { USER_FRAGMENT } from "../../../fragments";
+import {
+  prisma
+} from "../../../../generated/prisma-client";
+import {
+  USER_FRAGMENT
+} from "../../../fragments";
 
 export default {
   Mutation: {
@@ -46,8 +50,6 @@ export default {
                 goldPlane: 0,
                 validDate: new Date(),
                 logicDelete: false,
-
-                //moment().format("YYYY-MM-DD HH:mm:ss")
               },
             })
             .$fragment(USER_FRAGMENT);
@@ -62,7 +64,9 @@ export default {
               pushFlag: true,
               normalPlane: 3,
               goldPlane: 0,
-              validDate: moment().format("YYYY-MM-DD HH:mm:ss"),
+              validDate: new Date(),
+              lastLoginTime: new Date(),
+              logicDelete: false
             })
             .$fragment(USER_FRAGMENT);
         }
