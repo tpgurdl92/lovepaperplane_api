@@ -1,5 +1,6 @@
 import { prisma } from "../../../../generated/prisma-client";
 import { USER_FRAGMENT } from "../../../fragments";
+import moment from "moment";
 
 export default {
   Mutation: {
@@ -23,49 +24,25 @@ export default {
         });
 
         // 20200707 park add end
-        const resignCheck = await prisma.user({
+        /*const resignCheck = await prisma.user({
           machineId,
-        });
+        });*/
         let user;
-        if (resignCheck) {
-          console.log("update user");
-          console.log(username);
-          user = await prisma
-            .updateUser({
-              where: {
-                machineId: machineId,
-              },
-              data: {
-                username: username,
-                birthDate: birthDate,
-                gender: gender,
-                location: location,
-                nickname: nickname,
-                pushFlag: true,
-                normalPlane: 3,
-                goldPlane: 0,
-                validDate: new Date(),
-                logicDelete: false,
 
-                //moment().format("YYYY-MM-DD HH:mm:ss")
-              },
-            })
-            .$fragment(USER_FRAGMENT);
-        } else {
-          if (duplicationCheck) {
-            throw Error("username already exist");
-          }
-          console.log("create user");
-          user = await prisma
-            .createUser({
-              ...args,
-              pushFlag: true,
-              normalPlane: 3,
-              goldPlane: 0,
-              validDate: moment().format("YYYY-MM-DD HH:mm:ss"),
-            })
-            .$fragment(USER_FRAGMENT);
+        if (duplicationCheck) {
+          return false;
         }
+        console.log("create user");
+        user = await prisma
+          .createUser({
+            ...args,
+            pushFlag: true,
+            normalPlane: 3,
+            goldPlane: 0,
+            validDate: moment().format("YYYY-MM-DD HH:mm:ss"),
+          })
+          .$fragment(USER_FRAGMENT);
+
         console.log("user man: " + user);
         if (!user) {
           // if user was not created
@@ -74,11 +51,7 @@ export default {
           throw error("failed to create user");
           // 20200707 park add end
         }
-        const rooms = new Array();
-        return {
-          user: user,
-          rooms: rooms,
-        };
+        return true;
       } catch (e) {
         console.log(e);
         // 20200707 park add start

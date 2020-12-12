@@ -62,6 +62,8 @@ type Message{
   room:Room! @relation(name:"MessageOfRoom")
   createdAt:DateTime! @createdAt
   updatedAt:DateTime! @updatedAt
+  imageHeight: String
+  imageWidth: String
   isChecked: Boolean!
 }
 

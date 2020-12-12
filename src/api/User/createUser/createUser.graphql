@@ -10,5 +10,5 @@ type Mutation {
     location: String!
     nickname: String!
     machineId: String!
-  ): MaintenanceData
+  ): Boolean!
 }
