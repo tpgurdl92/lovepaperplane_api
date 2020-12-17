@@ -5,6 +5,7 @@ export const USER_FRAGMENT = `
         birthDate
         gender
         nickname
+        secret
         banningUser{
             id
         }

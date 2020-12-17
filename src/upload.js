@@ -13,11 +13,13 @@ const upload = multer({
     s3: s3,
     bucket: "clonegram",
     acl: "public-read",
-    metadata: function(req, file, cb) {
+    metadata: function (req, file, cb) {
       console.log("im here");
-      cb(null, { fieldName: file.fieldname });
+      cb(null, {
+        fieldName: file.fieldname
+      });
     },
-    key: function(req, file, cb) {
+    key: function (req, file, cb) {
       console.log("im here 2");
       cb(null, Date.now().toString());
     },
@@ -30,9 +32,13 @@ export const uploadController = (req, res) => {
   console.log("upload");
   console.log(req.file);
   const {
-    file: { location },
+    file: {
+      location
+    },
   } = req;
   //defy same-origin-policy
   //res.set({ "access-control-allow-origin": "*" });
-  res.json({ location });
+  res.json({
+    location
+  });
 };

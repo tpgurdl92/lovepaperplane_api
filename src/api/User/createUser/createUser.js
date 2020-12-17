@@ -1,6 +1,6 @@
 import { prisma } from "../../../../generated/prisma-client";
 import { USER_FRAGMENT } from "../../../fragments";
-import moment from "moment";
+import { generateSecret, sendSecretMail } from "../../../utils";
 
 export default {
   Mutation: {
@@ -17,29 +17,28 @@ export default {
         machineId,
       } = args;
       // 20200707 park modify end
+      let user;
       try {
         // 20200707 park add start
         const duplicationCheck = await prisma.user({
           username,
         });
 
-        // 20200707 park add end
-        /*const resignCheck = await prisma.user({
-          machineId,
-        });*/
-        let user;
-
         if (duplicationCheck) {
           return false;
         }
         console.log("create user");
+        let secret = "" + generateSecret();
         user = await prisma
           .createUser({
             ...args,
             pushFlag: true,
             normalPlane: 3,
             goldPlane: 0,
-            validDate: moment().format("YYYY-MM-DD HH:mm:ss"),
+            validDate: new Date(),
+            lastLoginTime: new Date(),
+            logicDelete: false,
+            secret: secret,
           })
           .$fragment(USER_FRAGMENT);
 
@@ -51,6 +50,7 @@ export default {
           throw error("failed to create user");
           // 20200707 park add end
         }
+        await sendSecretMail(username, secret);
         return true;
       } catch (e) {
         console.log(e);

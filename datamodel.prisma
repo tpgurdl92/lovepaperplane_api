@@ -2,7 +2,7 @@ type User {
   id: ID! @id
   username:String! @unique
   nickname:String! 
-  machineId:String! @unique
+  machineId:String!
   bio:String
   birthDate: String!
   gender: String!
@@ -12,6 +12,7 @@ type User {
   pushFlag : Boolean!
   normalPlane : Int!
   goldPlane:Int!
+  secret:String
   complainned:[Complain]! @relation(name:"ComplainnedOfUser" onDelete:CASCADE)
   complainning:[Complain]! @relation(name:"ComplainningOfUser" onDelete:CASCADE)
   validDate: DateTime!

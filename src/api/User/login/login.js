@@ -1,43 +1,36 @@
-import {
-  prisma
-} from "../../../../generated/prisma-client";
-import {
-  ROOM_FRAGMENT,
-  USER_FRAGMENT
-} from "../../../fragments";
+import { prisma } from "../../../../generated/prisma-client";
+import { ROOM_FRAGMENT, USER_FRAGMENT } from "../../../fragments";
 
 export default {
   Query: {
-    login: async (_, args) => {
-      console.log("im in1");
-      const {
-        machineId
-      } = args;
-      console.log(machineId);
+    login: async (_, args, request) => {
+      const { userid: userId } = request.request.headers;
+      console.log("login");
       try {
         const user = await prisma
           .user({
-            machineId,
+            id: userId,
           })
           .$fragment(USER_FRAGMENT);
         if (user) {
           if (user.logicDelete) {
-            console.log('need resign')
+            console.log("need resign");
             return null;
           }
           const lastLogin = await prisma.updateUser({
             where: {
-              machineId,
+              id: userId,
             },
             data: {
               lastLoginTime: new Date(),
             },
           });
-          console.log("userID:" + user.id);
+
           const rooms = await prisma
             .rooms({
               where: {
-                AND: [{
+                AND: [
+                  {
                     participant_some: {
                       id_in: [user.id],
                     },
